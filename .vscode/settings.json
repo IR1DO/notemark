@@ -1,0 +1,48 @@
+{
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "todohighlight.keywords": [
+    {
+      "text": "NOTE",
+      "color": "#333",
+      "backgroundColor": "#3498db"
+    },
+    {
+      "text": "FIXME",
+      "color": "#333",
+      "backgroundColor": "#e67e22"
+    },
+    {
+      "text": "BUG",
+      "color": "#333",
+      "backgroundColor": "#e74c3c"
+    },
+    {
+      "text": "DEPRECATED",
+      "color": "#333",
+      "backgroundColor": "#FF6347"
+    },
+    {
+      "text": "TODO",
+      "color": "#333",
+      "backgroundColor": "#2ecc71"
+    },
+    {
+      "text": "DEBUG",
+      "color": "#333",
+      "backgroundColor": "#2ecc"
+    },
+    {
+      "text": "TAG",
+      "color": "#333",
+      "backgroundColor": "#2ecccc"
+    }
+  ]
+}
