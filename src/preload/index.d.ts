@@ -1,5 +1,10 @@
 declare global {
   interface Window {
-    context: unknown
+    context: {
+      platform: string
+      locale: string
+    }
   }
 }
+
+export {}

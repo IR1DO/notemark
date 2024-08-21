@@ -6,7 +6,8 @@ if (!process.contextIsolated) {
 
 try {
   contextBridge.exposeInMainWorld('context', {
-    // TODO: Add your preload functions here
+    platform: process.platform,
+    locale: navigator.language
   })
 } catch (error) {
   console.log(error)
