@@ -19,7 +19,7 @@
         "src/shared/*"
       ],
       "@/*": [
-        "src/render/src/*"
+        "src/renderer/src/*"
       ],
     }
   }
