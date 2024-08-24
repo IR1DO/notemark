@@ -26,7 +26,7 @@ export const selectedNoteAtom = atom((get) => {
 export const createEmptyNoteAtom = atom(null, (get, set) => {
   const notes = get(notesAtom)
 
-  const title = `Note ${notes.length + 1}`
+  const title = `Note ${notes.length}`
 
   const newNote: NoteInfo = {
     id: uuidv4(),
@@ -34,9 +34,9 @@ export const createEmptyNoteAtom = atom(null, (get, set) => {
     lastEditTime: Date.now()
   }
 
-  set(notesAtom, [newNote, ...notes])
+  set(notesAtom, [...notes, newNote])
 
-  set(selectedNoteIndexAtom, 0)
+  set(selectedNoteIndexAtom, notes.length)
 })
 
 export const deleteNoteAtom = atom(null, (get, set) => {
