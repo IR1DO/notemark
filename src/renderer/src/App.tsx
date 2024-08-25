@@ -20,8 +20,36 @@ const App = () => {
   const notePreviewListRef = useRef<Scrollbars>(null)
   const scrollToNote = (id: string) => {
     const noteElement = document.getElementById(id)
+
     if (notePreviewListRef.current && noteElement) {
-      notePreviewListRef.current.scrollTop(noteElement.offsetTop)
+      const scrollbars = notePreviewListRef.current
+
+      const elementTop = noteElement.offsetTop
+      const elementBottom = elementTop + noteElement.clientHeight
+
+      const viewportTop = scrollbars.getScrollTop()
+      const viewportBottom = viewportTop + scrollbars.getClientHeight()
+
+      // Check if the note element is completely above the viewport
+      if (elementBottom < viewportTop || elementTop > viewportBottom) {
+        // Scroll to the element's top position
+        scrollbars.scrollTop(elementTop)
+      }
+
+      // Check if the note element is partially above the viewport
+      if (elementTop < viewportTop && elementBottom > viewportTop) {
+        // Scroll to the element's top position
+        // so it is fully visible at the top of the viewport
+        scrollbars.scrollTop(elementTop)
+      }
+
+      // Check if the note element is partially below the viewport
+      if (elementTop < viewportBottom && elementBottom > viewportBottom) {
+        // Scroll so that the element is fully visible within the viewport
+        scrollbars.scrollTop(
+          viewportTop + (noteElement.clientHeight - (viewportBottom - elementTop))
+        )
+      }
     }
   }
 

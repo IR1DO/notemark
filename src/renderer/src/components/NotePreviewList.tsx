@@ -13,6 +13,12 @@ export const NotePreviewList = forwardRef<Scrollbars, NotePreviewListProps>(
   ({ onSelect, scrollToNote, className, ...props }, ref) => {
     const { notes, selectedNoteIndex, handleNoteSelect } = useNotesList({ onSelect })
 
+    useEffect(() => {
+      if (selectedNoteIndex !== null) {
+        scrollToNote(notes[selectedNoteIndex].id)
+      }
+    }, [selectedNoteIndex])
+
     if (notes.length === 0) {
       return (
         <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={500}>
@@ -22,12 +28,6 @@ export const NotePreviewList = forwardRef<Scrollbars, NotePreviewListProps>(
         </Scrollbars>
       )
     }
-
-    useEffect(() => {
-      if (selectedNoteIndex) {
-        scrollToNote(notes[selectedNoteIndex].id)
-      }
-    }, [selectedNoteIndex])
 
     return (
       <Scrollbars ref={ref} autoHide autoHideTimeout={1000} autoHideDuration={500}>
