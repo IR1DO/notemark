@@ -3,6 +3,7 @@ import { ComponentProps, forwardRef, useEffect } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Scrollbars from 'react-custom-scrollbars-2'
 import { useNotesList } from '@renderer/hooks/useNotesList'
+import { isEmpty } from 'lodash'
 
 export type NotePreviewListProps = ComponentProps<'ul'> & {
   onSelect: () => void
@@ -14,12 +15,16 @@ export const NotePreviewList = forwardRef<Scrollbars, NotePreviewListProps>(
     const { notes, selectedNoteIndex, handleNoteSelect } = useNotesList({ onSelect })
 
     useEffect(() => {
-      if (selectedNoteIndex !== null) {
+      if (selectedNoteIndex !== null && notes) {
         scrollToNote(notes[selectedNoteIndex].id)
       }
     }, [selectedNoteIndex])
 
-    if (notes.length === 0) {
+    if (!notes) {
+      return null
+    }
+
+    if (isEmpty(notes)) {
       return (
         <Scrollbars autoHide autoHideTimeout={1000} autoHideDuration={500}>
           <ul className={twMerge('text-center pt-4', className)} {...props}>
