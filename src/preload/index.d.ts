@@ -10,6 +10,9 @@ declare global {
       writeNote: WriteNote
       createNote: CreateNote
       deleteNote: DeleteNote
+      closeWindow: () => void
+      minimizeWindow: () => void
+      newWindow: () => void
     }
   }
 }

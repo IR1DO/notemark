@@ -13,7 +13,10 @@ try {
     readNote: (...args: Parameters<ReadNote>) => ipcRenderer.invoke('readNote', ...args),
     writeNote: (...args: Parameters<WriteNote>) => ipcRenderer.invoke('writeNote', ...args),
     createNote: (...args: Parameters<CreateNote>) => ipcRenderer.invoke('createNote', ...args),
-    deleteNote: (...args: Parameters<DeleteNote>) => ipcRenderer.invoke('deleteNote', ...args)
+    deleteNote: (...args: Parameters<DeleteNote>) => ipcRenderer.invoke('deleteNote', ...args),
+    closeWindow: () => ipcRenderer.send('window-close'),
+    minimizeWindow: () => ipcRenderer.send('window-minimize'),
+    newWindow: () => ipcRenderer.send('window-new')
   })
 } catch (error) {
   console.log(error)

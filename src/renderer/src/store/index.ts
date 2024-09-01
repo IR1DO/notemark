@@ -14,7 +14,7 @@ const notesAtomAsync = atom<NoteInfo[] | Promise<NoteInfo[]>>(loadNotes())
 
 export const notesAtom = unwrap(notesAtomAsync, (prev) => prev)
 
-export const selectedNoteIndexAtom = atom<number | null>(null)
+export const selectedNoteIndexAtom = atom<number | null>(0)
 
 const selectedNoteAtomAsync = atom(async (get) => {
   const notes = get(notesAtom)

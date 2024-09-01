@@ -26,6 +26,7 @@
     "@mdxeditor/editor": "^3.11.0",
     "fs-extra": "^11.2.0",
     "jotai": "^2.9.3",
+    "lucide-react": "^0.437.0",
     "react-custom-scrollbars-2": "^4.5.0",
     "uuid": "^10.0.0"
   },

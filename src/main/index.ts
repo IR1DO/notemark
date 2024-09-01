@@ -5,15 +5,27 @@ import icon from '../../resources/icon.png?asset'
 import { createNote, deleteNote, getNotes, readNote, writeNote } from '@/lib'
 import { CreateNote, DeleteNote, GetNotes, ReadNote, WriteNote } from '@shared/types'
 
-function createWindow(): void {
+const windows = new Set()
+
+const createWindow = async () => {
+  let x: number | undefined, y: number | undefined
+  const currentWindow = BrowserWindow.getFocusedWindow()
+
+  if (currentWindow) {
+    const [currentWindowX, currentWindowY] = currentWindow.getPosition()
+    x = currentWindowX + 24
+    y = currentWindowY + 24
+  }
+
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  const newWindow = new BrowserWindow({
     width: 900,
     height: 670,
     show: false,
+    x,
+    y,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
-    center: true,
     title: 'NoteMark',
     frame: false,
     vibrancy: 'under-window',
@@ -27,11 +39,11 @@ function createWindow(): void {
     }
   })
 
-  mainWindow.on('ready-to-show', () => {
-    mainWindow.show()
+  newWindow.on('ready-to-show', () => {
+    newWindow.show()
   })
 
-  mainWindow.webContents.setWindowOpenHandler((details) => {
+  newWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url)
     return { action: 'deny' }
   })
@@ -39,10 +51,12 @@ function createWindow(): void {
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
+    newWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {
-    mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
+    newWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  windows.add(newWindow)
 }
 
 // This method will be called when Electron has finished
@@ -57,6 +71,22 @@ app.whenReady().then(() => {
   // see https://github.com/alex8088/electron-toolkit/tree/master/packages/utils
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
+  })
+
+  ipcMain.on('window-close', (event) => {
+    const currentWindow = BrowserWindow.fromWebContents(event.sender)
+    if (currentWindow) {
+      currentWindow.close()
+    }
+  })
+  ipcMain.on('window-minimize', (event) => {
+    const currentWindow = BrowserWindow.fromWebContents(event.sender)
+    if (currentWindow) {
+      currentWindow.minimize()
+    }
+  })
+  ipcMain.on('window-new', () => {
+    createWindow()
   })
 
   ipcMain.handle('getNotes', (_, ...args: Parameters<GetNotes>) => getNotes(...args))
