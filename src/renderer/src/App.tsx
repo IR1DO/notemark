@@ -56,6 +56,7 @@ const App = () => {
   return (
     <>
       <DraggableTopBar />
+      {/* TODO conditional bg class for macos vibrancy effect */}
       <RootLayout className="bg-zinc-600/50">
         <Sidebar className="p-2 flex flex-col gap-2 overflow-hidden">
           <ActionButtonsRow className="flex justify-between mt-1" />
