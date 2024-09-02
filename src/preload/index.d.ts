@@ -12,6 +12,8 @@ declare global {
       deleteNote: DeleteNote
       closeWindow: () => void
       minimizeWindow: () => void
+      maximizeWindow: () => void
+      unMaximizeWindow: () => void
       newWindow: () => void
     }
   }

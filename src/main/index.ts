@@ -85,6 +85,18 @@ app.whenReady().then(() => {
       currentWindow.minimize()
     }
   })
+  ipcMain.on('window-maximize', (event) => {
+    const currentWindow = BrowserWindow.fromWebContents(event.sender)
+    if (currentWindow) {
+      currentWindow.maximize()
+    }
+  })
+  ipcMain.on('window-unmaximize', (event) => {
+    const currentWindow = BrowserWindow.fromWebContents(event.sender)
+    if (currentWindow) {
+      currentWindow.unmaximize()
+    }
+  })
   ipcMain.on('window-new', () => {
     createWindow()
   })

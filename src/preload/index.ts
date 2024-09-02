@@ -16,6 +16,8 @@ try {
     deleteNote: (...args: Parameters<DeleteNote>) => ipcRenderer.invoke('deleteNote', ...args),
     closeWindow: () => ipcRenderer.send('window-close'),
     minimizeWindow: () => ipcRenderer.send('window-minimize'),
+    maximizeWindow: () => ipcRenderer.send('window-maximize'),
+    unMaximizeWindow: () => ipcRenderer.send('window-unmaximize'),
     newWindow: () => ipcRenderer.send('window-new')
   })
 } catch (error) {
