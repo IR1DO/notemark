@@ -10,7 +10,7 @@ import { isEmpty } from 'lodash'
 import welcomeNoteFile from '../../../resources/welcomeNote.md?asset'
 
 export const getRootDir = () => {
-  return `${homedir()}\\${appDirectoryName}`
+  return `${homedir()}${process.platform !== 'darwin' ? '\\' : '/'}${appDirectoryName}`
 }
 
 export const getNotes: GetNotes = async () => {
@@ -69,7 +69,7 @@ export const createNote: CreateNote = async () => {
 
   const { filePath, canceled } = await dialog.showSaveDialog({
     title: 'New note',
-    defaultPath: '${rootDir}/Untitled.md',
+    defaultPath: `${rootDir}/Untitled.md`,
     buttonLabel: 'Create',
     properties: ['showOverwriteConfirmation'],
     showsTagField: false,

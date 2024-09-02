@@ -1,4 +1,4 @@
-## Welcome to NoteMark 👋🏻
+# Welcome to NoteMark 👋🏻
 
 NoteMark is a simple **note-taking app** that uses **Markdown** syntax to format your notes.
 
